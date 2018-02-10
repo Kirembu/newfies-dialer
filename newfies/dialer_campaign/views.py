@@ -15,10 +15,9 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.core.mail import mail_admins
-from django.template.context import RequestContext
 from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.models import ContentType
 from dateutil.relativedelta import relativedelta
@@ -188,7 +187,7 @@ def campaign_list(request):
     request.session['msg'] = ''
     request.session['error_msg'] = ''
     request.session['info_msg'] = ''
-    return render_to_response('dialer_campaign/campaign/list.html', data, context_instance=RequestContext(request))
+    return render(request, 'dialer_campaign/campaign/list.html', data)
 
 
 def get_content_type(object_string):
@@ -259,7 +258,7 @@ def campaign_add(request):
         'form': form,
         'action': 'add',
     }
-    return render_to_response('dialer_campaign/campaign/change.html', data, context_instance=RequestContext(request))
+    return render(request, 'dialer_campaign/campaign/change.html', data)
 
 
 @permission_required('dialer_campaign.delete_campaign', login_url='/')
@@ -382,7 +381,7 @@ def campaign_change(request, object_id):
     }
     request.session['error_msg'] = ''
     request.session['info_msg'] = ''
-    return render_to_response('dialer_campaign/campaign/change.html', data, context_instance=RequestContext(request))
+    return render(request, 'dialer_campaign/campaign/change.html', data)
 
 
 @login_required
@@ -439,8 +438,7 @@ def campaign_duplicate(request, id):
         'err_msg': request.session.get('error_msg'),
     }
     request.session['error_msg'] = ''
-    return render_to_response('dialer_campaign/campaign/campaign_duplicate.html',
-                              data, context_instance=RequestContext(request))
+    return render(request, 'dialer_campaign/campaign/campaign_duplicate.html', data)
 
 
 @permission_required('dialer_campaign.view_subscriber', login_url='/')
@@ -568,7 +566,7 @@ def subscriber_list(request):
     }
     request.session['msg'] = ''
     request.session['error_msg'] = ''
-    return render_to_response('dialer_campaign/subscriber/list.html', data, context_instance=RequestContext(request))
+    return render(request, 'dialer_campaign/subscriber/list.html', data)
 
 
 @login_required

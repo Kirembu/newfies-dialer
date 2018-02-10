@@ -13,9 +13,9 @@
 #
 from django.contrib import admin
 from django.contrib import messages
-from django.conf.urls import patterns
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Count
+from django.conf.urls import url
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -72,10 +72,10 @@ class CampaignAdmin(GenericAdminModelAdmin):
 
     def get_urls(self):
         urls = super(CampaignAdmin, self).get_urls()
-        my_urls = patterns('',
-                           (r'^$', self.admin_site.admin_view(self.changelist_view)),
-                           (r'^add/$', self.admin_site.admin_view(self.add_view)),
-                           )
+        my_urls = [
+                           url(r'^$', self.admin_site.admin_view(self.changelist_view)),
+                           url(r'^add/$', self.admin_site.admin_view(self.add_view)),
+        ]
         return my_urls + urls
 
     def add_view(self, request, extra_context=None):
@@ -115,9 +115,9 @@ class SubscriberAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super(SubscriberAdmin, self).get_urls()
-        my_urls = patterns('',
-                           (r'^subscriber_report/$', self.admin_site.admin_view(self.subscriber_report)),
-                           )
+        my_urls = [
+                           url(r'^subscriber_report/$', self.admin_site.admin_view(self.subscriber_report)),
+        ]
         return my_urls + urls
 
     def subscriber_report(self, request):

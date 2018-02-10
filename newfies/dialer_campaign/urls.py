@@ -11,27 +11,28 @@
 # The primary maintainer of this project is
 # Arezqui Belaid <info@star2billing.com>
 #
-from django.conf.urls import patterns
+from django.conf.urls import include, url
+from dialer_campaign import views
 
-urlpatterns = patterns('dialer_campaign.views',
+urlpatterns = [
                        #  Campaign urls
-                       (r'^campaign/$', 'campaign_list'),
-                       (r'^campaign/add/$', 'campaign_add'),
-                       (r'^campaign/del/(.+)/$', 'campaign_del'),
-                       (r'^campaign_duplicate/(.+)/$', 'campaign_duplicate'),
+                       url(r'^campaign/$', views.campaign_list),
+                       url(r'^campaign/add/$', views.campaign_add),
+                       url(r'^campaign/del/(.+)/$', views.campaign_del),
+                       url(r'^campaign_duplicate/(.+)/$', views.campaign_duplicate),
 
                        # Campaign Actions (start|stop|pause|abort)
-                       (r'^campaign/update_campaign_status_cust/(\d*)/(\d*)/$',
-                        'update_campaign_status_cust'),
-                       (r'^campaign/(.+)/$', 'campaign_change'),
+                       url(r'^campaign/update_campaign_status_cust/(\d*)/(\d*)/$',
+                           views.update_campaign_status_cust),
+                       url(r'^campaign/(.+)/$', views.campaign_change),
                        # Campaign Actions (start|stop|pause|abort) for Admin UI
-                       (r'^update_campaign_status_admin/(\d*)/(\d*)/$',
-                        'update_campaign_status_admin'),
+                       url(r'^update_campaign_status_admin/(\d*)/(\d*)/$',
+                       views.update_campaign_status_admin),
 
                        #  Subscriber urls
-                       (r'^subscribers/$', 'subscriber_list'),
-                       (r'^subscribers/export_subscriber/$', 'subscriber_export'),
+                       url(r'^subscribers/$', views.subscriber_list),
+                       url(r'^subscribers/export_subscriber/$', views.subscriber_export),
 
                        # Send notification to admin regarding dialer setting
-                       (r'^notify/admin/$', 'notify_admin'),
-                       )
+                       url(r'^notify/admin/$', views.notify_admin),
+]

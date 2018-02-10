@@ -20,7 +20,7 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.db.models.signals import post_save
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import transaction
 
 from django_lets_go.intermediate_model_base_class import Model
@@ -191,7 +191,7 @@ class Campaign(Model):
     name = models.CharField(max_length=100, verbose_name=_('name'))
     description = models.TextField(verbose_name=_('description'), blank=True,
                                    null=True, help_text=_("campaign description"))
-    user = models.ForeignKey('auth.User', related_name='Campaign owner')
+    user = models.ForeignKey('auth.User', related_name='Campaignowner')
     status = models.IntegerField(choices=list(CAMPAIGN_STATUS), default=CAMPAIGN_STATUS.PAUSE,
                                  verbose_name=_("status"), blank=True, null=True)
     callerid = models.CharField(max_length=80, blank=True, verbose_name=_("Caller ID Number"),
@@ -231,14 +231,14 @@ class Campaign(Model):
         help_text=_("time delay in seconds before retrying contact to complete survey"))
     calltimeout = models.IntegerField(default='45', blank=True, null=True, verbose_name=_('timeout on dialing'),
                                       help_text=_("dialing timeout in seconds"))
-    aleg_gateway = models.ForeignKey(Gateway, verbose_name=_("A-Leg gateway"), related_name="A-Leg Gateway",
+    aleg_gateway = models.ForeignKey(Gateway, verbose_name=_("A-Leg gateway"), related_name="ALegGateway",
                                      help_text=_("select outbound gateway"))
     sms_gateway = models.ForeignKey(SMS_Gateway, verbose_name=_("sms gateway"), null=True, blank=True,
                                     related_name="campaign_sms_gateway", help_text=_("select SMS gateway"))
     content_type = models.ForeignKey(ContentType, verbose_name=_("type"),
                                      limit_choices_to={"model__in": ["survey_template", "survey"]})
     object_id = models.PositiveIntegerField(verbose_name=_("application"))
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
     extra_data = models.CharField(max_length=120, blank=True, verbose_name=_("extra parameters"),
                                   help_text=_("additional application parameters."))
     phonebook = models.ManyToManyField(Phonebook, blank=True, null=True)

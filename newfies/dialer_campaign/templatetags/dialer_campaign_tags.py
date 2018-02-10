@@ -12,7 +12,7 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 
-from django.db.models import get_model
+from django.apps import apps
 from django.template.defaultfilters import register
 from dialer_campaign.constants import CAMPAIGN_STATUS, CAMPAIGN_STATUS_COLOR
 from django.utils.translation import ugettext as _
@@ -68,7 +68,7 @@ def get_app_name(app_label, model_name, object_id):
     Usage: {% get_app_name app_label model_name object_id %}
     """
     try:
-        return get_model(app_label, model_name).objects.get(pk=object_id)
+        return apps.get_model(app_label, model_name).objects.get(pk=object_id)
     except:
         return '-'
 
