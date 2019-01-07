@@ -43,14 +43,14 @@ class EventViewSet(viewsets.ModelViewSet):
             queryset = Event.objects.filter(creator_id__in=calendar_user_list)
         return queryset
 
-    @action(methods=['PATCH'])
+    @action(methods=['PATCH'], detail="update_last_child_status")
     def update_last_child_status(self, request, pk=None):
         """it will update last child event status"""
         event = self.get_object()
         event.update_last_child_status(request.DATA['status'])
         return Response({'status': 'event status has been updated'})
 
-    @action(methods=['GET'])
+    @action(methods=['GET'], detail="get_list_child")
     def get_list_child(self, request, pk=None):
         """it will get all child events"""
         event = self.get_object()
@@ -75,7 +75,7 @@ class EventViewSet(viewsets.ModelViewSet):
             final_data = {"note": "no child event found"}
         return Response(final_data)
 
-    @action(methods=['GET'])
+    @action(methods=['GET'], detail="get_list_alarm")
     def get_list_alarm(self, request, pk=None):
         """it will get all alarm for a given event"""
         event = self.get_object()

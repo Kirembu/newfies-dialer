@@ -43,10 +43,10 @@ class Alarm(models.Model):
                                related_name="survey")
     mail_template = models.ForeignKey(MailTemplate, verbose_name=_("mail"),
                                       blank=True, null=True,
-                                      related_name="mail template")
+                                      related_name="mail_template")
     sms_template = models.ForeignKey(SMSTemplate, verbose_name=_("SMS"),
                                      blank=True, null=True,
-                                     related_name="sms template")
+                                     related_name="sms_template")
     event = models.ForeignKey(Event, verbose_name=_("related to event"),
                               related_name="event")
     date_start_notice = models.DateTimeField(verbose_name=_('alarm date'), default=now)

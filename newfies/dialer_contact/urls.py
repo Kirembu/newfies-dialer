@@ -11,21 +11,21 @@
 # The primary maintainer of this project is
 # Arezqui Belaid <info@star2billing.com>
 #
-from django.conf.urls import patterns
+from django.conf.urls import url
+from dialer_contact.views import *
 
-
-urlpatterns = patterns('dialer_contact.views',
+urlpatterns = [
                        # Phonebook urls
-                       (r'^phonebook/$', 'phonebook_list'),
-                       (r'^phonebook/add/$', 'phonebook_add'),
-                       (r'^phonebook/contact_count/$', 'get_contact_count'),
-                       (r'^phonebook/del/(.+)/$', 'phonebook_del'),
-                       (r'^phonebook/(.+)/$', 'phonebook_change'),
+                       url(r'^phonebook/$', phonebook_list),
+                       url(r'^phonebook/add/$', phonebook_add),
+                       url(r'^phonebook/contact_count/$', get_contact_count),
+                       url(r'^phonebook/del/(.+)/$', phonebook_del),
+                       url(r'^phonebook/(.+)/$', phonebook_change),
 
                        # Contacts urls
-                       (r'^contact/$', 'contact_list'),
-                       (r'^contact/add/$', 'contact_add'),
-                       (r'^contact_import/$', 'contact_import'),
-                       (r'^contact/del/(.+)/$', 'contact_del'),
-                       (r'^contact/(.+)/$', 'contact_change'),
-                       )
+                       url(r'^contact/$', contact_list),
+                       url(r'^contact/add/$', contact_add),
+                       url(r'^contact_import/$', contact_import),
+                       url(r'^contact/del/(.+)/$', contact_del),
+                       url(r'^contact/(.+)/$', contact_change),
+]

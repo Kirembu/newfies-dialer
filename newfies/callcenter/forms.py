@@ -26,6 +26,7 @@ class QueueForm(ModelForm):
 
     class Meta:
         model = Queue
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super(QueueForm, self).__init__(*args, **kwargs)
@@ -89,6 +90,7 @@ class TierForm(ModelForm):
     """TierForm is used to change"""
 
     class Meta:
+        fields = '__all__'
         model = Tier
 
     def __init__(self, *args, **kwargs):

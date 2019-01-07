@@ -12,10 +12,10 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 
-from django.conf.urls import patterns
+from django.conf.urls import url
+from user_profile.views import customer_detail_change
 
-
-urlpatterns = patterns('user_profile.views',
+urlpatterns = [
                        # User detail change for Customer UI
-                       (r'^user_detail_change/$', 'customer_detail_change'),
-                       )
+                       url(r'^user_detail_change/$', customer_detail_change),
+]

@@ -12,12 +12,13 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 
-from django.conf.urls import patterns
+from django.conf.urls import url
+from dialer_audio.views import audio_list, audio_add, audio_del, audio_change
 
-urlpatterns = patterns('dialer_audio.views',
+urlpatterns = [
                        # Audio urls
-                       (r'^module/audio/$', 'audio_list'),
-                       (r'^module/audio/add/$', 'audio_add'),
-                       (r'^module/audio/del/(.+)/$', 'audio_del'),
-                       (r'^module/audio/(.+)/$', 'audio_change'),
-                       )
+                       url(r'^module/audio/$', audio_list),
+                       url(r'^module/audio/add/$', audio_add),
+                       url(r'^module/audio/del/(.+)/$', audio_del),
+                       url(r'^module/audio/(.+)/$', audio_change),
+]

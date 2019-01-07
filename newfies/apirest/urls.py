@@ -13,7 +13,7 @@
 # The primary maintainer of this project is
 # Arezqui Belaid <info@star2billing.com>
 #
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 from rest_framework import routers
 
 from apirest.view_contenttype import ContentTypeViewSet
@@ -92,7 +92,7 @@ router.register(r'alarm-request', AlarmRequestViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browseable API.
-urlpatterns = patterns('',
+urlpatterns = [
                        url(r'^rest-api/subcampaign/$', SubscriberPerCampaignList.as_view(), name="subscriber_campaign"),
                        url(r'^rest-api/subcampaign/(?P<campaign_id>[0-9]+)/$',
                            SubscriberPerCampaignList.as_view(), name="subscriber_campaign"),
@@ -110,4 +110,4 @@ urlpatterns = patterns('',
 
                        url(r'^rest-api/', include(router.urls)),
                        url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-                       )
+                       ]

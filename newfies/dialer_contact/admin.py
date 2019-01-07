@@ -12,9 +12,9 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 
+from django.conf.urls import url
 from django.contrib import admin
 from django.contrib import messages
-from django.conf.urls import patterns
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
@@ -22,6 +22,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 
 from dialer_contact.models import Phonebook, Contact
+from dialer_contact.views import *
 from dialer_contact.forms import Contact_fileImport
 from dialer_campaign.function_def import check_dialer_setting, dialer_setting_limit
 from user_profile.constants import NOTIFICATION_NAME
@@ -53,10 +54,10 @@ class ContactAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super(ContactAdmin, self).get_urls()
-        my_urls = patterns('',
-                           (r'^add/$', self.admin_site.admin_view(self.add_view)),
-                           (r'^import_contact/$', self.admin_site.admin_view(self.import_contact)),
-                           )
+        my_urls = [
+                           url(r'^add/$', self.admin_site.admin_view(self.add_view)),
+                           url(r'^import_contact/$', self.admin_site.admin_view(self.import_contact)),
+        ]
         return my_urls + urls
 
     def add_view(self, request, extra_context=None):

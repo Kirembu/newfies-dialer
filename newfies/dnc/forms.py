@@ -15,7 +15,7 @@
 from django import forms
 from django.forms import ModelForm, Textarea
 from django.utils.translation import ugettext_lazy as _
-from django.forms.util import ErrorList
+from django.forms.utils import ErrorList
 from dnc.models import DNC, DNCContact
 from dialer_contact.forms import FileImport
 from mod_utils.forms import Exportfile

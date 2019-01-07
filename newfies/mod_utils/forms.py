@@ -22,7 +22,7 @@ from crispy_forms.bootstrap import FormActions
 # from crispy_forms.layout import Submit
 
 
-class HorizRadioRenderer(forms.RadioSelect.renderer):
+class HorizRadioRenderer(forms.RadioSelect):
 
     """This overrides widget method to put radio buttons horizontally
     instead of vertically.
@@ -40,7 +40,7 @@ class Exportfile(forms.Form):
     """
     export_to = forms.TypedChoiceField(label=_('Export to'), required=True,
                                        choices=list(Export_choice),
-                                       widget=forms.RadioSelect(renderer=HorizRadioRenderer))
+                                       widget=forms.RadioSelect())
 
 
 class SaveUserModelForm(ModelForm):

@@ -12,32 +12,32 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 
-from django.conf.urls import patterns
+from django.conf.urls import url
+from survey.views import *
 
-
-urlpatterns = patterns('survey.views',
+urlpatterns = [
                        # Survey urls
-                       (r'^module/survey/$', 'survey_list'),
-                       (r'^module/survey/add/$', 'survey_add'),
-                       (r'^module/sealed_survey_view/(.+)/$', 'sealed_survey_view'),
-                       (r'^module/survey/del/(.+)/$', 'survey_del'),
-                       (r'^module/survey/(.+)/$', 'survey_change'),
-                       (r'^module/export_survey/(.+)/$', 'export_survey'),
-                       (r'^module/import_survey/$', 'import_survey'),
-                       (r'^module/sealed_survey/$', 'sealed_survey_list'),
-                       (r'^module/seal_survey/(.+)/$', 'seal_survey'),
+                       url(r'^module/survey/$', survey_list),
+                       url(r'^module/survey/add/$', survey_add),
+                       url(r'^module/sealed_survey_view/(.+)/$', sealed_survey_view),
+                       url(r'^module/survey/del/(.+)/$', survey_del),
+                       url(r'^module/survey/(.+)/$', survey_change),
+                       url(r'^module/export_survey/(.+)/$', export_survey),
+                       url(r'^module/import_survey/$', import_survey),
+                       url(r'^module/sealed_survey/$', sealed_survey_list),
+                       url(r'^module/seal_survey/(.+)/$', seal_survey),
 
                        # Section urls
-                       (r'^section/add/$', 'section_add'),
-                       (r'^section/branch/add/$', 'section_branch_add'),
-                       (r'^section/delete/(?P<id>\w+)/$', 'section_delete'),
-                       (r'^section/(?P<id>\w+)/$', 'section_change'),
-                       (r'^section/script/(?P<id>\w+)/$', 'section_script_change'),
-                       (r'^section/script_play/(?P<id>\w+)/$', 'section_script_play'),
-                       (r'^section/branch/(?P<id>\w+)/$', 'section_branch_change'),
+                       url(r'^section/add/$', section_add),
+                       url(r'^section/branch/add/$', section_branch_add),
+                       url(r'^section/delete/(?P<id>\w+)/$', section_delete),
+                       url(r'^section/(?P<id>\w+)/$', section_change),
+                       url(r'^section/script/(?P<id>\w+)/$', section_script_change),
+                       url(r'^section/script_play/(?P<id>\w+)/$', section_script_play),
+                       url(r'^section/branch/(?P<id>\w+)/$', section_branch_change),
 
                        # Survey Report urls
-                       (r'^survey_report/$', 'survey_report'),
-                       (r'^export_surveycall_report/$', 'export_surveycall_report'),
-                       (r'^survey_campaign_result/(?P<id>\w+)/$', 'survey_campaign_result'),
-                       )
+                       url(r'^survey_report/$', survey_report),
+                       url(r'^export_surveycall_report/$', export_surveycall_report),
+                       url(r'^survey_campaign_result/(?P<id>\w+)/$', survey_campaign_result),
+]

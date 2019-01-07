@@ -145,7 +145,7 @@ class CampaignSerializer(serializers.HyperlinkedModelSerializer):
     """
     user = serializers.Field(source='user')
     sms_gateway = serializers.HyperlinkedRelatedField(
-        read_only=False, view_name='sms-gateway-detail')
+        read_only=True, view_name='sms-gateway-detail')
 
     class Meta:
         model = Campaign

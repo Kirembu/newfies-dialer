@@ -39,7 +39,7 @@ class Phonebook(Model):
     """
     name = models.CharField(max_length=90, verbose_name=_('name'))
     description = models.TextField(null=True, blank=True, help_text=_("phonebook notes"))
-    user = models.ForeignKey('auth.User', related_name='Phonebook owner')
+    user = models.ForeignKey('auth.User', related_name='Phonebook_owner')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name=_('date'))
     updated_date = models.DateTimeField(auto_now=True)
 

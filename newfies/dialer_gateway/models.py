@@ -86,7 +86,7 @@ class Gateway(Model):
     updated_date = models.DateTimeField(auto_now=True)
 
     failover = models.ForeignKey('self', null=True, blank=True,
-                                 related_name="Failover Gateway", help_text=_("select gateway"))
+                                 related_name="Failover_Gateway", help_text=_("select gateway"))
     addparameter = models.CharField(verbose_name=_('add parameter'),
                                     max_length=360, blank=True)
     count_call = models.IntegerField(null=True, blank=True,

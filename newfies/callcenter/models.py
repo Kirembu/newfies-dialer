@@ -91,7 +91,7 @@ class Queue(Model):
 
     """
     manager = models.ForeignKey(Manager, verbose_name=_("manager"), blank=True, null=True,
-                                help_text=_("select manager"), related_name="queue manager")
+                                help_text=_("select manager"), related_name="queue_manager")
     name = models.CharField(verbose_name=_("name"), max_length=250)
     strategy = models.IntegerField(choices=list(STRATEGY), default=STRATEGY.agent_with_least_talk_time,
                                    verbose_name=_("status"), blank=True, null=True)
@@ -157,7 +157,7 @@ class Tier(Model):
 
     """
     manager = models.ForeignKey(Manager, verbose_name=_("manager"), blank=True, null=True,
-                                help_text=_("select manager"), related_name="tier manager")
+                                help_text=_("select manager"), related_name="tier_manager")
     agent = models.ForeignKey(AgentProfile, verbose_name=_("agent"), blank=True, null=True,
                               help_text=_("select agent"), related_name="agent")
     queue = models.ForeignKey(Queue, verbose_name=_("queue"), blank=True, null=True,

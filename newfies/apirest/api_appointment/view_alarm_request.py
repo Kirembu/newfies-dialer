@@ -48,7 +48,7 @@ class AlarmRequestViewSet(viewsets.ModelViewSet):
                 alarm__event__creator_id__in=calendar_user_list)
         return queryset
 
-    @action(methods=['GET'])
+    @action(methods=['GET'], detail="get_nested_alarm_request")
     def get_nested_alarm_request(self, request, pk=None):
         """it will get all nested alarm request"""
         #alarm_request = self.get_object()

@@ -13,7 +13,7 @@
 #
 
 from django import forms
-from django.forms.util import ErrorList
+from django.forms.utils import ErrorList
 from django.forms import ModelForm, Textarea
 from django.utils.translation import ugettext_lazy as _
 

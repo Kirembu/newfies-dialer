@@ -12,12 +12,15 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 from django.conf.urls import handler404, handler500, \
-    include, patterns, url
+    include, url
 from django.conf import settings
+from django.views.i18n import javascript_catalog
+from django.views.static import serve
 from apirest.urls import urlpatterns as urlpatterns_apirest
 from agent.api_urls import urlpatterns as urlpatterns_agent_apirest
 from appointment.urls import urlpatterns as urlpatterns_appointment
 from frontend.urls import urlpatterns as urlpatterns_frontend
+from frontend import views as frontend_views
 from dialer_contact.urls import urlpatterns as urlpatterns_dialer_contact
 from dialer_campaign.urls import urlpatterns as urlpatterns_dialer_campaign
 from dialer_cdr.urls import urlpatterns as urlpatterns_dialer_cdr
@@ -45,23 +48,25 @@ js_info_dict = {
                  'audiofield'),
 }
 
-urlpatterns = patterns('',
-                       (r'^logout/$', 'frontend.views.logout_view'),
-                       (r'^admin/', include(admin.site.urls)),
-                       (r'^i18n/', include('django.conf.urls.i18n')),
-                       (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
-                       (r'^admin_tools/', include('admin_tools.urls')),
-                       (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+urlpatterns = [
+                       url(r'^logout/$', frontend_views.logout_view),
+                       url(r'^admin/', include(admin.site.urls)),
+                       url(r'^i18n/', include('django.conf.urls.i18n')),
+                       url(r'^jsi18n/$', javascript_catalog, js_info_dict),
+                       url(r'^admin_tools/', include('admin_tools.urls')),
+                       url(r'^static/(?P<path>.*)$', serve,
                         {'document_root': settings.STATIC_ROOT}),
                        # (r'^sentry/', include('sentry.web.urls')),
                        # (r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
                        url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
-                       (r'^accounts/', include('registration.backends.default.urls')),
-                       )
+                       url(r'^accounts/', include('registration.backends.default.urls')),
+                       ]
 
 if settings.DEBUG:
     import debug_toolbar
-    urlpatterns += patterns('', url(r'^__debug__/', include(debug_toolbar.urls)),)
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls))
+    ]
 
 urlpatterns += urlpatterns_apirest
 urlpatterns += urlpatterns_agent_apirest
@@ -79,10 +84,10 @@ urlpatterns += urlpatterns_frontend_notification
 urlpatterns += urlpatterns_appointment
 urlpatterns += urlpatterns_mod_sms
 
-urlpatterns += patterns('',
-                        (r'^%s/(?P<path>.*)$' % settings.MEDIA_URL.strip(os.sep),
-                         'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-                        )
+urlpatterns += [
+    url(r'^%s/(?P<path>.*)$' % settings.MEDIA_URL.strip(os.sep),
+        serve, {'document_root': settings.MEDIA_ROOT}),
+]
 
 
 handler404 = 'urls.custom_404_view'

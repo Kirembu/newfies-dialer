@@ -52,7 +52,7 @@ class Event(models.Model):
     data = jsonfield.JSONField(null=True, blank=True, verbose_name=_('additional data (JSON)'),
                                help_text=_("data in JSON format, e.g. {\"cost\": \"40 euro\"}"))
     # Keep a trace of the original event of all occurences
-    parent_event = models.ForeignKey('self', null=True, blank=True, related_name="parent event")
+    parent_event = models.ForeignKey('self', null=True, blank=True, related_name="event_parent_event")
     # Occurence count, this is an increment that will add 1 on the new event created
     # This helps to know that an event is the nth created
     occ_count = models.IntegerField(null=True, blank=True, default=0,

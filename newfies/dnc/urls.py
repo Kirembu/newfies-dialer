@@ -12,23 +12,23 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 
-from django.conf.urls import patterns
+from django.conf.urls import url
+from dnc.views import *
 
-
-urlpatterns = patterns('dnc.views',
+urlpatterns = [
                        # DNC urls
-                       (r'^module/dnc_list/$', 'dnc_list'),
-                       (r'^module/dnc_list/add/$', 'dnc_add'),
-                       (r'^module/dnc_list/contact_count/$', 'get_dnc_contact_count'),
-                       (r'^module/dnc_list/del/(.+)/$', 'dnc_del'),
-                       (r'^module/dnc_list/(.+)/$', 'dnc_change'),
+                       url(r'^module/dnc_list/$', dnc_list),
+                       url(r'^module/dnc_list/add/$', dnc_add),
+                       url(r'^module/dnc_list/contact_count/$', get_dnc_contact_count),
+                       url(r'^module/dnc_list/del/(.+)/$', dnc_del),
+                       url(r'^module/dnc_list/(.+)/$', dnc_change),
 
                        # DNC Contacts urls
-                       (r'^module/dnc_contact/$', 'dnc_contact_list'),
-                       (r'^module/dnc_contact/add/$', 'dnc_contact_add'),
-                       (r'^module/dnc_contact_import/$', 'dnc_contact_import'),
-                       (r'^module/dnc_contact/export/$', 'dnc_contact_export'),
-                       (r'^module/dnc_contact/export_view/$', 'dnc_contact_export_view'),
-                       (r'^module/dnc_contact/del/(.+)/$', 'dnc_contact_del'),
-                       (r'^module/dnc_contact/(.+)/$', 'dnc_contact_change'),
-                       )
+                       url(r'^module/dnc_contact/$', dnc_contact_list),
+                       url(r'^module/dnc_contact/add/$', dnc_contact_add),
+                       url(r'^module/dnc_contact_import/$', dnc_contact_import),
+                       url(r'^module/dnc_contact/export/$', dnc_contact_export),
+                       url(r'^module/dnc_contact/export_view/$', dnc_contact_export_view),
+                       url(r'^module/dnc_contact/del/(.+)/$', dnc_contact_del),
+                       url(r'^module/dnc_contact/(.+)/$', dnc_contact_change),
+]

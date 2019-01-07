@@ -441,10 +441,10 @@ class Branching_template(Branching_abstract):
     This defines the response of the survey section
     """
     section = models.ForeignKey(Section_template,
-                                related_name='Branching Template Section')
+                                related_name='Branching_Template_Section')
     goto = models.ForeignKey(Section_template, null=True,
                              blank=True,
-                             related_name='Goto Template Section')
+                             related_name='Goto_Template_Section')
 
     class Meta():
         unique_together = ("keys", "section")
@@ -473,9 +473,9 @@ class Branching(Branching_abstract):
     """
     This defines the response of the survey section
     """
-    section = models.ForeignKey(Section, related_name='Branching Section')
+    section = models.ForeignKey(Section, related_name='Branching_Section')
     goto = models.ForeignKey(Section, null=True,
-                             blank=True, related_name='Goto Section')
+                             blank=True, related_name='Goto_Section')
 
     class Meta():
         unique_together = ("keys", "section")
@@ -515,7 +515,7 @@ class Result(models.Model):
     callrequest = models.ForeignKey(Callrequest,
                                     blank=True, null=True,
                                     related_name='survey_callrequest')
-    section = models.ForeignKey(Section, related_name='Result Section')
+    section = models.ForeignKey(Section, related_name='Result_Section')
     response = models.CharField(max_length=150, blank=False,
                                 verbose_name=_("response"))
     record_file = models.CharField(max_length=200, blank=True, default='',
@@ -540,8 +540,8 @@ class ResultAggregate(models.Model):
 
     **Name of DB table**: result_aggregate
     """
-    survey = models.ForeignKey(Survey, related_name='ResultSum Survey')
-    section = models.ForeignKey(Section, related_name='ResultSum Section')
+    survey = models.ForeignKey(Survey, related_name='ResultSum_Survey')
+    section = models.ForeignKey(Section, related_name='ResultSum_Section')
     response = models.CharField(max_length=150, blank=False, db_index=True,
                                 verbose_name=_("response"))  # Orange ; Kiwi
     count = models.IntegerField(max_length=20, default=0,

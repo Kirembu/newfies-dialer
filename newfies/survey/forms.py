@@ -145,6 +145,7 @@ class PlayMessageSectionForm(ModelForm):
 
     class Meta:
         model = Section_template
+        fields = '__all__'
         # fields = ['type', 'survey', 'question',  'audiofile', 'completed']  # 'retries',
 
     def __init__(self, user, *args, **kwargs):
@@ -181,6 +182,7 @@ class MultipleChoiceSectionForm(ModelForm):
 
     class Meta:
         model = Section_template
+        fields = '__all__'
         # fields = ['type', 'survey', 'question', 'retries', 'timeout', 'audiofile', 'invalid_audiofile',
         #          'key_0', 'key_1', 'key_2', 'key_3', 'key_4', 'key_5', 'key_6', 'key_7', 'key_8', 'key_9',
         #          'completed']
@@ -245,6 +247,7 @@ class RatingSectionForm(ModelForm):
 
     class Meta:
         model = Section_template
+        fields = '__all__'
         # fields = ['type', 'survey', 'question', 'rating_laps',
         #          'retries', 'timeout', 'audiofile', 'invalid_audiofile', 'completed']
 
@@ -290,6 +293,7 @@ class CaptureDigitsSectionForm(ModelForm):
 
     class Meta:
         model = Section_template
+        fields = '__all__'
         # fields = ['type', 'survey', 'question', 'validate_number', 'number_digits', 'min_number', 'max_number',
         #          'retries', 'timeout', 'audiofile', 'invalid_audiofile', 'completed']
 
@@ -349,6 +353,7 @@ class RecordMessageSectionForm(ModelForm):
 
     class Meta:
         model = Section_template
+        fields = '__all__'
         # fields = ['type', 'survey', 'question', 'audiofile', 'completed']
 
     def __init__(self, user, *args, **kwargs):
@@ -385,6 +390,7 @@ class ConferenceSectionForm(ModelForm):
 
     class Meta:
         model = Section_template
+        fields = '__all__'
         # fields = ['type', 'survey', 'question', 'audiofile', 'conference', 'completed']
 
     def __init__(self, user, *args, **kwargs):
@@ -421,6 +427,7 @@ class CallTransferSectionForm(ModelForm):
 
     class Meta:
         model = Section_template
+        fields = '__all__'
         # fields = ['type', 'survey', 'question', 'audiofile', 'phonenumber', 'completed']
 
     def __init__(self, user, *args, **kwargs):
@@ -459,6 +466,7 @@ class SMSSectionForm(ModelForm):
 
     class Meta:
         model = Section_template
+        fields = '__all__'
         # fields = ['type', 'survey', 'question', 'retries', 'audiofile', 'completed', 'sms_text']
         widgets = {
             'sms_text': Textarea(attrs={'cols': 23, 'rows': 2}),
@@ -520,6 +528,7 @@ class BranchingForm(ModelForm):
 
     class Meta:
         model = Branching_template
+        fields = '__all__'
         # fields = ['keys', 'section', 'goto']
 
     def __init__(self, survey_id, section_id, *args, **kwargs):

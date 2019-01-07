@@ -130,7 +130,7 @@ class SMSCampaign(Model):
     name = models.CharField(max_length=100, verbose_name=_('name'))
     description = models.TextField(verbose_name=_('description'), blank=True,
                                    null=True, help_text=_("campaign description"))
-    user = models.ForeignKey('auth.User', related_name='SMSCampaign owner')
+    user = models.ForeignKey('auth.User', related_name='SMSCampaign_owner')
     status = models.IntegerField(choices=list(SMS_CAMPAIGN_STATUS),
                                  default=SMS_CAMPAIGN_STATUS.PAUSE, verbose_name=_("status"))
     callerid = models.CharField(max_length=80, blank=True,
@@ -164,7 +164,7 @@ class SMSCampaign(Model):
                                         help_text=_("time delay in seconds before retrying contact"))
 
     sms_gateway = models.ForeignKey(Gateway, verbose_name=_("sms gateway"),
-                                    related_name="SMS Gateway",
+                                    related_name="SMS_Gateway",
                                     help_text=_("select SMS gateway"))
     text_message = models.TextField(verbose_name=_('text Message'), blank=False, null=False)
 
