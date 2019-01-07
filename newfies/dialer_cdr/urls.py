@@ -12,10 +12,13 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 
-from django.conf.urls import patterns
+from django.conf.urls import url
+from dialer_cdr.views import voipcall_report, export_voipcall_report
+from frontend.views import index
 
-urlpatterns = patterns('dialer_cdr.views',
+urlpatterns = [
                        # VoIP Call Report urls
-                       (r'^voipcall_report/$', 'voipcall_report'),
-                       (r'^export_voipcall_report/$', 'export_voipcall_report'),
-                       )
+                       url(r'^$', index, name='index'),
+                       url(r'^voipcall_report/$', voipcall_report),
+                       url(r'^export_voipcall_report/$', export_voipcall_report),
+              ]

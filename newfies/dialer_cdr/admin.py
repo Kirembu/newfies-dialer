@@ -15,12 +15,12 @@
 from django.contrib import admin
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.views.main import ERROR_FLAG
-from django.conf.urls import patterns
 from django.conf import settings
+from django.conf.urls import url
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 from django.db.models import Sum, Avg, Count
@@ -124,11 +124,11 @@ class VoIPCallAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super(VoIPCallAdmin, self).get_urls()
-        my_urls = patterns('',
-                           (r'^$', self.admin_site.admin_view(self.changelist_view)),
-                           (r'^voip_daily_report/$', self.admin_site.admin_view(self.voip_daily_report)),
-                           (r'^export_voip_report/$', self.admin_site.admin_view(self.export_voip_report)),
-                           )
+        my_urls = [
+                           url(r'^$', self.admin_site.admin_view(self.changelist_view)),
+                           url(r'^voip_daily_report/$', self.admin_site.admin_view(self.voip_daily_report)),
+                           url(r'^export_voip_report/$', self.admin_site.admin_view(self.export_voip_report)),
+        ]
         return my_urls + urls
 
     def changelist_view(self, request, extra_context=None):
@@ -182,7 +182,8 @@ class VoIPCallAdmin(admin.ModelAdmin):
                             self)
         except IncorrectLookupParameters:
             if ERROR_FLAG in request.GET.keys():
-                return render_to_response('admin/invalid_setup.html', {'title': _('Database error')})
+                return render(request, 'admin/invalid_setup.html',
+                              {'title': _('Database error')})
             return HttpResponseRedirect('%s?%s=1' % (request.path, ERROR_FLAG))
 
         if request.META['QUERY_STRING'] == '':
@@ -256,7 +257,7 @@ class VoIPCallAdmin(admin.ModelAdmin):
             'app_label': APP_LABEL,
             'title': _('call aggregate report'),
         })
-        return render_to_response('admin/dialer_cdr/voipcall/voip_report.html', context_instance=ctx)
+        return render(request, 'admin/dialer_cdr/voipcall/voip_report.html')
 
     def export_voip_report(self, request):
         """Export a CSV file of VoIP call records

@@ -14,7 +14,7 @@
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template.context import RequestContext
 from django.db.models import Sum, Avg, Count
 from django.conf import settings
@@ -53,7 +53,7 @@ def get_voipcall_daily_data(voipcall_list):
         total_avg_duration = 0
 
     data = {
-        'total_data': total_data,
+        'total_data': list(total_data),
         'total_duration': total_duration,
         'total_calls': total_calls,
         'total_avg_duration': total_avg_duration,
@@ -97,8 +97,8 @@ def voipcall_report(request):
 
         converted_start_date = start_date.strftime('%Y-%m-%d')
         converted_end_date = end_date.strftime('%Y-%m-%d')
-        request.session['session_start_date'] = converted_start_date
-        request.session['session_end_date'] = converted_end_date
+        request.session['session_start_date'] = str(start_date)
+        request.session['session_end_date'] = str(end_date)
 
         disposition = getvar(request, 'disposition', setsession=True)
         campaign_id = getvar(request, 'campaign_id', setsession=True)
@@ -140,8 +140,8 @@ def voipcall_report(request):
                                                      'campaign_id': campaign_id,
                                                      'leg_type': leg_type})
         # unset session var
-        request.session['session_start_date'] = start_date
-        request.session['session_end_date'] = end_date
+        request.session['session_start_date'] = str(tday)
+        request.session['session_end_date'] = str(tday)
         request.session['session_disposition'] = disposition
         request.session['session_campaign_id'] = ''
         request.session['session_leg_type'] = ''
@@ -171,7 +171,7 @@ def voipcall_report(request):
 
     # Session variable is used to get record set with searched option
     # into export file
-    request.session['voipcall_record_kwargs'] = kwargs
+    request.session['voipcall_record_kwargs'] = '' #kwargs
 
     if request.GET.get('page') or request.GET.get('sort_by'):
         daily_data = request.session['voipcall_daily_data']
@@ -194,13 +194,14 @@ def voipcall_report(request):
         'voipcall_list': voipcall_list,
         'CDR_REPORT_COLUMN_NAME': CDR_REPORT_COLUMN_NAME,
         'col_name_with_order': pag_vars['col_name_with_order'],
-        'start_date': start_date,
-        'end_date': end_date,
+        'start_date': from_date,
+        'end_date': to_date,
         'action': action,
     }
     request.session['msg'] = ''
     request.session['error_msg'] = ''
-    return render_to_response('dialer_cdr/voipcall_report.html', data, context_instance=RequestContext(request))
+    return render(request,
+                  'dialer_cdr/voipcall_report.html', data)
 
 
 @login_required
