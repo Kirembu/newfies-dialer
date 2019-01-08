@@ -92,6 +92,6 @@ if "notification" in settings.INSTALLED_APPS:
             "sms_dialer_setting_configuration", _("SMS Dialer setting configuration"),
             _("The SMS Dialer settings needs to be mapped with dialer settings by the administrator"),
             **kwargs)
-    signals.post_syncdb.connect(create_notice_types, sender=notification)
+    signals.post_migrate.connect(create_notice_types, sender=notification)
 else:
     print "Skipping creation of NoticeTypes as notification app not found"

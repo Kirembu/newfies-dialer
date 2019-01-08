@@ -10,9 +10,10 @@ certifi==2018.11.29
 chardet==3.0.4
 Click==7.0
 confusable-homoglyphs==3.2.0
+coverage==4.5.2
 decorator==4.3.0
 Django==1.11.18
-django-activelink==0.4
+django-activelink==1.0
 django-admin-sortable==2.1.9
 django-admin-tools==0.8.1
 django-admin-tools-stats==0.5.5
@@ -35,7 +36,7 @@ django-frontend-notification==1.0.3
 django-genericadmin==0.7.0
 django-jsonfield==1.0.1
 django-kombu==0.9.4
-django-lets-go==2.9.3
+django-lets-go==2.9.6
 django-mailer==1.2.6a0
 django-model-utils==3.1.2
 django-notification==0.2.2

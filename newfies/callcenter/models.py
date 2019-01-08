@@ -101,18 +101,18 @@ class Queue(Model):
                                        choices=list(TIME_BASE_SCORE_TYPE), default=TIME_BASE_SCORE_TYPE.queue)
     tier_rules_apply = models.BooleanField(default=False, verbose_name=_("tier-rules-apply"))
     tier_rule_wait_second = models.IntegerField(verbose_name=_("tier-rule-wait-second"),
-                                                max_length=250, null=True, blank=True, default=300)
+                                                null=True, blank=True, default=300)
     tier_rule_wait_multiply_level = models.BooleanField(default=True, verbose_name=_("tier-rule-wait-multiply-level"))
     tier_rule_no_agent_no_wait = models.BooleanField(default=False, verbose_name=_("tier-rule-no-agent-no-wait"))
     discard_abandoned_after = models.IntegerField(verbose_name=_("discard-abandoned-after"),
-                                                  max_length=250, null=True, blank=True, default=14400)
+                                                  null=True, blank=True, default=14400)
     abandoned_resume_allowed = models.BooleanField(default=True, verbose_name=_("abandoned-resume-allowed"))
-    max_wait_time = models.IntegerField(verbose_name=_("max-wait-time"), max_length=250, null=True, blank=True,
+    max_wait_time = models.IntegerField(verbose_name=_("max-wait-time"), null=True, blank=True,
                                         default=0)
     max_wait_time_with_no_agent = models.IntegerField(verbose_name=_("max-wait-time-with-no-agent"),
-                                                      max_length=250, null=True, blank=True, default=120)
+                                                      null=True, blank=True, default=120)
     max_wait_time_with_no_agent_time_reached = models.IntegerField(verbose_name=_("max-wait-time-with-no-agent-time-reached"),
-                                                                   max_length=250, null=True, blank=True,
+                                                                   null=True, blank=True,
                                                                    default=5)
     created_date = models.DateTimeField(auto_now_add=True, verbose_name=_('date'))
     updated_date = models.DateTimeField(auto_now=True)

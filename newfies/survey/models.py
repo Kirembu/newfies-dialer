@@ -214,7 +214,7 @@ class Section_abstract(Sortable):
     **Name of DB table**: survey_question
     """
     # select section
-    type = models.IntegerField(max_length=20, choices=list(SECTION_TYPE), default=SECTION_TYPE.PLAY_MESSAGE,
+    type = models.IntegerField(choices=list(SECTION_TYPE), default=SECTION_TYPE.PLAY_MESSAGE,
                                # blank=True, null=True,
                                verbose_name=_('section type'))
     # Question is the section label, this is used in the reporting
@@ -225,10 +225,10 @@ class Section_abstract(Sortable):
                               help_text=_('Example: Press a key between 1 to 5, press pound key when done or Hello {first_name} {last_name}, please press a key between 1 to 5'))
     audiofile = models.ForeignKey(AudioFile, null=True, blank=True,
                                   verbose_name=_("audio File"))
-    retries = models.IntegerField(max_length=1, null=True, blank=True,
+    retries = models.IntegerField(null=True, blank=True,
                                   verbose_name=_("retries"), default=0,
                                   help_text=_('retries until valid input'))
-    timeout = models.IntegerField(max_length=2, null=True, blank=True,
+    timeout = models.IntegerField(null=True, blank=True,
                                   verbose_name=_("timeout"), default=5,
                                   help_text=_('timeout in seconds'))
     # Multi-choice
@@ -253,15 +253,15 @@ class Section_abstract(Sortable):
     key_9 = models.CharField(max_length=100, null=True, blank=True,
                              verbose_name=_("key 9"))
     # Rating question
-    rating_laps = models.IntegerField(max_length=1, default=9, null=True, blank=True,
+    rating_laps = models.IntegerField(default=9, null=True, blank=True,
                                       verbose_name=_("from 1 to X"))
     # Capture Digits
     validate_number = models.BooleanField(default=True, verbose_name=_('check validity'))
-    number_digits = models.IntegerField(max_length=2, null=True, blank=True,
+    number_digits = models.IntegerField(null=True, blank=True,
                                         default="2", verbose_name=_("number of digits"))
-    min_number = models.BigIntegerField(max_length=50, null=True, blank=True,
+    min_number = models.BigIntegerField(null=True, blank=True,
                                         default=0, verbose_name=_("minimum"))
-    max_number = models.BigIntegerField(max_length=50, null=True, blank=True,
+    max_number = models.BigIntegerField(null=True, blank=True,
                                         default=99, verbose_name=_("maximum"))
     # Call Transfer
     phonenumber = models.CharField(max_length=50, null=True, blank=True,
@@ -402,7 +402,7 @@ class Section(Section_abstract):
                                           verbose_name=_("audio invalid input"),
                                           related_name='survey_invalid_audiofile')
     # section_template_id is used to easy duplication
-    section_template = models.IntegerField(max_length=10, blank=True,
+    section_template = models.IntegerField(blank=True,
                                            default=0, null=True,
                                            verbose_name=_('section template ID'))
 
@@ -520,7 +520,7 @@ class Result(models.Model):
                                 verbose_name=_("response"))
     record_file = models.CharField(max_length=200, blank=True, default='',
                                    verbose_name=_("record File"))
-    recording_duration = models.IntegerField(max_length=10, blank=True,
+    recording_duration = models.IntegerField(blank=True,
                                              default=0, null=True,
                                              verbose_name=_('recording duration'))
     created_date = models.DateTimeField(auto_now_add=True)
@@ -544,7 +544,7 @@ class ResultAggregate(models.Model):
     section = models.ForeignKey(Section, related_name='ResultSum_Section')
     response = models.CharField(max_length=150, blank=False, db_index=True,
                                 verbose_name=_("response"))  # Orange ; Kiwi
-    count = models.IntegerField(max_length=20, default=0,
+    count = models.IntegerField(default=0,
                                 verbose_name=_("result count"))
 
     created_date = models.DateTimeField(auto_now_add=True)
